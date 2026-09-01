@@ -52,9 +52,11 @@ function Waveform({ isPlaying }: { isPlaying: boolean }) {
           "--sc-scale-start": String(scaleStart),
           backgroundColor: "#F3F0E6",
           opacity: 0.85,
-          animation: isPlaying
-            ? `scWave ${0.65 + (i % 6) * 0.07}s ease-in-out infinite alternate`
-            : "none",
+          animationName: isPlaying ? "scWave" : "none",
+          animationDuration: `${0.65 + (i % 6) * 0.07}s`,
+          animationTimingFunction: "ease-in-out",
+          animationIterationCount: "infinite",
+          animationDirection: "alternate",
           animationDelay: `${(i * 0.04) % 0.45}s`,
         } as CSSProperties;
         return (
@@ -96,6 +98,25 @@ export default function SoundCloudPlayer() {
     const onWeddingPlay = () => widgetRef.current?.play();
     document.addEventListener("wedding:play", onWeddingPlay);
     return () => document.removeEventListener("wedding:play", onWeddingPlay);
+  }, []);
+
+  // Fallback: force play on the very first user interaction anywhere on page
+  useEffect(() => {
+    const forcePlay = () => {
+      if (!widgetRef.current) return;
+      widgetRef.current.play();
+      document.removeEventListener("click", forcePlay);
+      document.removeEventListener("keydown", forcePlay);
+      document.removeEventListener("touchstart", forcePlay);
+    };
+    document.addEventListener("click", forcePlay);
+    document.addEventListener("keydown", forcePlay);
+    document.addEventListener("touchstart", forcePlay);
+    return () => {
+      document.removeEventListener("click", forcePlay);
+      document.removeEventListener("keydown", forcePlay);
+      document.removeEventListener("touchstart", forcePlay);
+    };
   }, []);
 
   // Load SC Widget API once iframe is mounted

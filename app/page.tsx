@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import OurStory from "@/components/OurStory";
@@ -41,8 +42,11 @@ const faqJsonLd = {
 };
 
 export default function Page() {
+  redirect("/e-invite");
+
   return (
     <>
+      {/* <Preloader /> */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
