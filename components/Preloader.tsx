@@ -117,7 +117,8 @@ export default function Preloader() {
 
           {/* Content layer */}
           <motion.div
-            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+            className={`absolute inset-0 space-y-4 flex flex-col items-center justify-center overflow-y-auto px-6 py-8 text-center pointer-events-auto ${isReady ? "cursor-pointer" : ""}`}
+            onClick={isReady ? handleEnter : undefined}
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
@@ -137,11 +138,11 @@ export default function Preloader() {
             </motion.p>
 
             <motion.div
-              className="mt-6 flex items-center justify-center"
+              className="flex items-center justify-center shrink-0"
               style={{
                 fontFamily: "var(--font-dynalight)",
                 color: "var(--color-peach)",
-                fontSize: "clamp(96px, 18vw, 200px)",
+                fontSize: "clamp(64px, min(18vw, 22svh), 200px)",
                 lineHeight: 1,
               }}
               initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -175,7 +176,7 @@ export default function Preloader() {
               </motion.span>
             </motion.div>
 
-            <motion.p
+            {/* <motion.p
               className="mt-6 font-forum uppercase"
               style={{
                 color: "var(--color-dark)",
@@ -192,17 +193,17 @@ export default function Preloader() {
                 ·
               </span>
               {config.fullName.bride}
-            </motion.p>
+            </motion.p> */}
 
-            <motion.div
+            {/* <motion.div
               className="mt-6 h-px w-20 origin-center"
               style={{ backgroundColor: "var(--color-sage)", opacity: 0.4 }}
               initial={reduce ? false : { scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-            />
+            /> */}
 
-            <motion.p
+            {/* <motion.p
               className="mt-5 font-[family-name:var(--font-jakarta)] uppercase text-[10px] sm:text-[11px]"
               style={{
                 color: "var(--color-sage)",
@@ -216,10 +217,10 @@ export default function Preloader() {
               19 · 09 · 2026
               <span style={{ margin: "0 0.9em", opacity: 0.5 }}>·</span>
               Johor Bahru
-            </motion.p>
+            </motion.p> */}
 
             <motion.p
-              className="mt-3 font-[family-name:var(--font-forum)] italic text-[10px] sm:text-[11px]"
+              className="font-[family-name:var(--font-forum)] italic text-[10px] sm:text-[11px]"
               style={{
                 color: "var(--color-sage)",
                 letterSpacing: "0.15em",
@@ -233,7 +234,7 @@ export default function Preloader() {
 
             {/* Progress hairline */}
             <motion.div
-              className="mt-10 h-px w-[120px] overflow-hidden"
+              className="h-px w-[120px] overflow-hidden"
               style={{ backgroundColor: "rgba(36, 24, 20, 0.12)" }}
               initial={reduce ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -253,9 +254,12 @@ export default function Preloader() {
             </motion.div>
 
             {/* Reserved slot — fixed height prevents layout shift when CTA appears */}
-            <div className="mt-10 h-8 flex items-center justify-center">
+            {/* <div className="h-8 flex items-center justify-center">
               <motion.button
-                onClick={handleEnter}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEnter();
+                }}
                 className="pointer-events-auto font-[family-name:var(--font-jakarta)] uppercase text-[11px] tracking-[0.4em] pl-[0.4em] cursor-pointer group"
                 style={{ color: "var(--color-dark)" }}
                 initial={{ opacity: 0 }}
@@ -274,7 +278,18 @@ export default function Preloader() {
                   →
                 </span>
               </motion.button>
-            </div>
+            </div> */}
+
+            {/* Hint that the whole screen is tappable */}
+            <motion.p
+              className="font-[family-name:var(--font-jakarta)] uppercase text-[9px] sm:text-[10px]"
+              style={{ color: "var(--color-sage)", letterSpacing: "0.3em", paddingLeft: "0.3em" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isReady ? 0.65 : 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              Tap anywhere to enter
+            </motion.p>
           </motion.div>
         </motion.div>
       )}
