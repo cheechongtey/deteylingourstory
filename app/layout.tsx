@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Dynalight, Forum, Plus_Jakarta_Sans } from "next/font/google";
+import { Dynalight, Forum, Noto_Serif_SC, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SoundCloudPlayer from "@/components/SoundCloudPlayer";
 import Preloader from "@/components/Preloader";
@@ -19,6 +19,12 @@ const forum = Forum({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
+});
+
+const notoSerifSC = Noto_Serif_SC({
+  weight: ["300", "400", "600"],
+  subsets: ["latin"],
+  variable: "--font-noto-serif-sc",
 });
 
 export const metadata: Metadata = {
@@ -68,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dynalight.variable} ${forum.variable} ${jakarta.variable}`}
+      className={`${dynalight.variable} ${forum.variable} ${jakarta.variable} ${notoSerifSC.variable}`}
     >
       <body>
         <Preloader />

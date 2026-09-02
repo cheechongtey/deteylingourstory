@@ -12,21 +12,16 @@ export default function Preloader() {
   const [loaded, setLoaded] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [scrollbarPad, setScrollbarPad] = useState(0);
-  // Desktop-only curtain: mobile visitors unlock audio via their first tap/scroll
-  // instead (see SoundCloudPlayer's touchstart fallback), no gate needed.
-  const [isDesktop, setIsDesktop] = useState(true);
   const reduce = useReducedMotion();
 
   useLayoutEffect(() => {
     setScrollbarPad(window.innerWidth - document.documentElement.clientWidth);
-    setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
   }, []);
 
   const total = config.heroImages.length;
   const progress = total === 0 ? 1 : loaded / total;
 
   useEffect(() => {
-    if (!isDesktop) return;
     const start = Date.now();
     document.body.style.overflow = "hidden";
 
@@ -68,7 +63,7 @@ export default function Preloader() {
       clearTimeout(minTimer);
       clearTimeout(maxTimer);
     };
-  }, [total, isDesktop]);
+  }, [total]);
 
   const handleEnter = () => {
     document.dispatchEvent(new CustomEvent("wedding:play"));
@@ -80,8 +75,6 @@ export default function Preloader() {
   };
 
   const ease = [0.76, 0, 0.24, 1] as const;
-
-  if (!isDesktop) return null;
 
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>

@@ -42,7 +42,7 @@ const faqJsonLd = {
 };
 
 export default function Page() {
-  redirect("/e-invite");
+  redirect("/invite");
 
   return (
     <>
