@@ -231,7 +231,7 @@ export default function InvitePage() {
           {/* Sign-off */}
           <div className="mt-14 flex items-center gap-4 sm:mt-[86px] sm:gap-[26px]">
             <span className="font-noto-serif-sc font-semibold tracking-[.12em] text-[#2B211B] text-[22px] sm:text-[40px]">
-              志强 玲玲
+              志钟 玲玲
             </span>
             <span className="h-px w-[70px] bg-[#2B211B] sm:w-[150px]" />
             <span className="font-noto-serif-sc font-semibold tracking-[.12em] text-[#2B211B] text-[22px] sm:text-[40px]">
